@@ -1,0 +1,142 @@
+
+
+/* Reset des styles de la liste */
+li {
+    list-style-type: none;
+}
+
+/* Styles pour les liens */
+
+
+.link {
+    vertical-align: top;
+    font-size: smaller;
+}
+
+/* Styles pour le logo */
+#logo {
+    margin: 10px;
+}
+
+img {
+    border: 0px;
+    margin-right: 2px;
+}
+
+/* Styles pour les zones de saisie */
+.input_box {
+    border: 1px solid silver;
+    width: 200px;
+}
+
+/* Styles pour les tables */
+table {
+    padding: 0;
+    margin: 0;
+    empty-cells: show;
+    border-collapse: collapse;
+    border: 0;
+}
+
+/* Styles pour les zones de saisie en lecture seule */
+.input-ro {
+    border: 1px solid black;
+    background-color: #e0e0e0;
+}
+
+/* Styles pour les messages d'erreur */
+.error {
+    text-align: left;
+    color: #ff0000;
+    font-size: smaller;
+}
+
+/* Styles pour la fenêtre de connexion */
+#title {
+    margin-bottom: -5px; /* Ajoute de l'espace en bas du titre */
+    display: block; /* Assure que le titre occupe une ligne distincte */
+}
+
+#login-window {
+    padding-top: 10px; /* Ajoute de l'espace en haut du formulaire */
+}
+/* Styles pour la fenêtre de logo */
+#logo-window {
+    border-bottom: 2px solid #E0EBEA;
+}
+
+/* Styles pour les liens */
+#links {
+    text-align: right;
+    vertical-align: top;
+    width: 100%;
+}
+
+/* Styles pour la zone principale */
+#main {
+    background: #FFFFFF none repeat scroll 0 0;
+    margin: 0 auto;
+    max-width: 1002px;
+    width: expression(document.body.clientWidth > 1002 ? "1002px" : "auto");
+    min-width: 770px;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+/* Styles pour le titre */
+#title {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: large;
+    color: #334988;
+}
+
+/* Styles pour les textes */
+span {
+    color: #a1a1a1;
+}
+
+
+
+
+
+
+/* Styles pour la zone inférieure */
+#bottom {
+    margin: 30px;
+}
+
+/* Styles pour les lignes d'en-tête */
+.header-row {
+    background-color: #003788;
+    color: #ffffff;
+    width: 100%;
+}
+
+/* Styles pour les cellules d'image */
+.image-cell {
+    padding-left: 40px;
+}
+
+/* Styles pour le texte UNIBANK */
+.unibank-text {
+    font-size: 2em;
+    font-family: Arial;
+    font-weight: bold;
+    color: #ffffff;
+    margin-left: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    vertical-align: -20px;
+}
+
+
+
+
+
+
+
+
+
+
+

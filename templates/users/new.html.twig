@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Inclure Font Awesome -->
+    <style>
+        /* Styles pour la popup de la modal */
+        .modal {
+            display: block; /* Afficher la modal par défaut */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .sign-up-icon {
+            text-align: center;
+            margin-top: 10px; /* Marge supérieure */
+            margin-bottom: 40px; /* Nouvelle marge inférieure */
+            color: #003788; /* Changer la couleur de l'icône en bleu (#003788) */
+        }
+        .error-icon {
+            color: red;
+            cursor: pointer;
+            display: none; /* Masquer les points d'exclamation par défaut */
+        }
+        .error-message {
+            display: none;
+            background-color: red;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 5px;
+            position: absolute;
+            z-index: 1;
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group .error-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+
+<section class="">
+    <!-- Popup Modal pour le Formulaire d'Inscription -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <!-- Formulaire d'Inscription -->
+            <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body py-5 px-md-5">
+                                    <form id="registrationForm" method="POST" action="{{ path('app_users_new') }}" novalidate>
+                                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                        <!-- Icône d'Inscription -->
+                                        <div class="sign-up-icon">
+                                            <i class="fas fa-user-plus fa-3x"></i> <!-- Utiliser l'icône "User Plus" de Font Awesome -->
+                                        </div>
+                                            
+                                        <!-- Champ du Prénom -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'First name', 'id': 'nom'}}) }}
+                                            <span class="error-icon" id="error-nom"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-nom" role="alert">
+                                                {{ form_errors(form.nom)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ du Nom de Famille -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Last name', 'id': 'prenom'}}) }}
+                                            <span class="error-icon" id="error-prenom"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-prenom" role="alert">
+                                                {{ form_errors(form.prenom)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Email -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email address', 'id': 'email'}}) }}
+                                            <span class="error-icon" id="error-email"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-email" role="alert">
+                                                {{ form_errors(form.email)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Mot de Passe -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Password', 'id': 'password'}}) }}
+                                            <span class="error-icon" id="error-password"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-password" role="alert">
+                                                {{ form_errors(form.password)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Adresse -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Address', 'id': 'adresse'}}) }}
+                                            <span class="error-icon" id="error-adresse"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-adresse" role="alert">
+                                                {{ form_errors(form.adresse)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Raison Sociale -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.Raison_Sociale, {'attr': {'class': 'form-control', 'placeholder': 'Raison Sociale', 'id': 'raison-sociale'}}) }}
+                                            <span class="error-icon" id="error-raison-sociale"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-raison-sociale" role="alert">
+                                                {{ form_errors(form.Raison_Sociale)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Téléphone -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Telephone', 'id': 'telephone'}}) }}
+                                            <span class="error-icon" id="error-telephone"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-telephone" role="alert">
+                                                {{ form_errors(form.telephone)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Date de Naissance -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.dateDeNaissance, {'attr': {'class': 'form-control', 'placeholder': 'Date de Naissance', 'id': 'date-de-naissance'}}) }}
+                                            <span class="error-icon" id="error-date-de-naissance"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-date-de-naissance" role="alert">
+                                                {{ form_errors(form.dateDeNaissance)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ CIN -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.cin, {'attr': {'class': 'form-control', 'placeholder': 'CIN', 'id': 'cin'}}) }}
+                                            <span class="error-icon" id="error-cin"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-cin" role="alert">
+                                                {{ form_errors(form.cin)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Champ Photo -->
+                                        <div class="mb-4 input-group">
+                                            {{ form_widget(form.photo, {'attr': {'class': 'form-control-file', 'id': 'photo'}}) }}
+                                            <span class="error-icon" id="error-photo"><i class="fas fa-exclamation-circle"></i></span>
+                                            <div class="error-message" id="error-message-photo" role="alert">
+                                                {{ form_errors(form.photo)|striptags }}
+                                            </div>
+                                        </div>
+                                            
+                                        <!-- Bouton de Soumission -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                                            Sign up
+                                        </button>
+                                        {{ form_end(form) }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin du Formulaire d'Inscription -->
+        </div>
+    </div>
+    <!-- Fin de la Popup Modal pour le Formulaire d'Inscription -->
+</section>
+
+<script>
+    // Function to hide error icon and message
+    function hideError(input) {
+        var errorMessage = document.getElementById('error-message-' + input.id);
+        var errorIcon = document.getElementById('error-' + input.id);
+        errorMessage.style.display = 'none';
+        errorIcon.style.display = 'none';
+    }
+
+    // Function to show error icon and message
+    function showError(input) {
+        var errorMessage = document.getElementById('error-message-' + input.id);
+        var errorIcon = document.getElementById('error-' + input.id);
+        errorMessage.style.display = 'block';
+        errorIcon.style.display = 'inline';
+    }
+
+    // Add event listener to input fields for input event
+    document.querySelectorAll('input').forEach(function(input) {
+        input.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                showError(this);
+            } else {
+                hideError(this);
+            }
+        });
+    });
+
+    // Add event listener to form for submit event
+    document.querySelector('#registrationForm').addEventListener('submit', function(event) {
+        var inputs = this.querySelectorAll('input');
+        var isError = false;
+
+        // Check all form fields again for errors
+        inputs.forEach(function(input) {
+            if (input.value.trim() === '') {
+                showError(input);
+                isError = true;
+            }
+        });
+
+        // If an error is found, prevent form submission
+        if (isError) {
+            event.preventDefault(); // Prevent form submission if there is an error
+        }
+    });
+
+    // Add event listeners to error icons
+    document.querySelectorAll('.error-icon').forEach(function(errorIcon) {
+        errorIcon.addEventListener('mouseover', function() {
+            var errorMessage = document.getElementById('error-message-' + this.id.replace('error-', ''));
+            errorMessage.style.display = 'block';
+        });
+        errorIcon.addEventListener('mouseout', function() {
+            var errorMessage = document.getElementById('error-message-' + this.id.replace('error-', ''));
+            errorMessage.style.display = 'none';
+        });
+    });
+
+    // Display error icons if there is an error
+    window.onload = function() {
+        document.querySelectorAll('.error-message').forEach(function(errorMessage) {
+            if (errorMessage.innerText.trim() !== '') {
+                var errorIcon = document.getElementById('error-' + errorMessage.id.replace('error-message-', ''));
+                errorIcon.style.display = 'inline';
+            }
+        });
+    };
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

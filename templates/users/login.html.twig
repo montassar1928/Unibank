@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIATNET Authentification</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <style>
+        #top {
+            width: 100%;
+            margin-bottom: 0px; /* Ajout de marge en bas pour rapprocher du contenu */
+        }
+        #main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100% - 20px); /* Utilisation de calc pour ajuster la hauteur en tenant compte de la marge ajoutée */
+        }
+        #middle {
+            width: 90%; /* Ajustez la largeur selon vos besoins */
+            max-width: 1200px; /* Limitez la largeur maximale */
+        }
+        /* Ajoutez d'autres styles CSS au besoin */
+        /* Ajoutez des media queries pour les ajustements en fonction de la taille de l'écran */
+        @media screen and (max-width: 768px) {
+            #middle {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body onload="setFocus()">
+    <div id="top">
+        <div id="logo-window">
+            <div align="center" class="HeaderBody">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr class="header-row">
+                            <td class="image-cell" width="100px" height="100px" style="padding-right: 10px;">
+                                <img src="{{ asset('images/428026953_281625504949153_814641542176646955_n.png') }}" alt="Description de l'image" width="100px" height="100px">
+                            </td>
+                            <td>
+                                <span class="unibank-text">UNIBANK</span>
+                            </td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td class="header_td_1_1" width="733px" height="30px"></td>
+                                        <td class="header_td_1_2" width="223px" colspan="2"></td>
+                                        <td class="header_td_1_3" width="43px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="header_td_2_1" width="733px" height="132px"></td>
+                                        <td class="header_td_2_2" width="104px"></td>
+                                        <td class="header_td_2_3" width="119px">
+                                            <div class="header_td_2_3"></div>
+                                        </td>
+                                        <td class="header_td_2_4" width="43px"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="middle">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td width="70px" class="LeftBiat" colspan="2">
+                            <div align="center"></div>
+                        </td>
+                        <td width="500px">
+                            <form action="{{ path('app_login') }}" method="post">
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                {% endif %}
+                                <div id="login-window">
+                                    <span id="title">Se connecter à UNIBANK :</span>
+                                    <br>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email">
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+                                    </div>
+                                    
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    <div class="row mb-4">
+                                        <div class="col d-flex justify-content-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="form2Example34" onchange="togglePasswordVisibility()" />
+                                                <label class="form-check-label" for="form2Example34"> Show password </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#!" id="forgot-password-link">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #003788; border-color: #003788;">Se connecter</button>
+                                    <!-- ... -->
+                                    <div class="text-center">
+                                        <p>Not a member? <a href="{{ path('app_users_new') }}" id="register-link">Register</a></p>
+                                    </div>
+                                    <!-- ... -->
+                                </div>
+                            </form>
+                            
+                            <script>
+                                function togglePasswordVisibility() {
+                                    var passwordInput = document.getElementById("inputPassword");
+                                    var showPasswordCheckbox = document.getElementById("form2Example34");
+                                    if (showPasswordCheckbox.checked) {
+                                        passwordInput.type = "text";
+                                    } else {
+                                        passwordInput.type = "password";
+                                    }
+                                }
+                            </script>
+                            
+                            
+                        </td>
+                        <td width="404px" valign="top" style="padding-top:45px">
+                            <div>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                        </td>
+                        <td width="70px" class="RightBiat" colspan="2">
+                            <div align="center"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="bottom"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerLink = document.getElementById('register-link');
+            if (registerLink) {
+                registerLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = this.getAttribute('href');
+                    openPopup(url);
+                });
+            }
+    
+            function openPopup(url) {
+                const width = 600;
+                const height = 400;
+                const left = (window.innerWidth - width) / 2;
+                const top = (window.innerHeight - height) / 2;
+                const options = `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=yes`;
+                window.open(url, '_blank', options);
+            }
+        });
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#forgot-password-link').click(function(event) {
+                event.preventDefault();
+    
+                var popup = $('<div class="popup"></div>');
+                var popupContent = $('<div class="popup-content"></div>');
+                var closeButton = $('<span class="close-button">&times;</span>');
+    
+                popupContent.append(closeButton);
+                popupContent.append('<h2>Forgot Password</h2>');
+                popupContent.append(`
+                    <form id="reset-password-form" action="{{ path('validate_email') }}" method="POST">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <button type="submit" class="next-button">Next</button>
+                    </form>
+                `);
+    
+                popup.append(popupContent);
+                $('body').append(popup);
+    
+                closeButton.click(function() {
+                    popup.remove();
+                });
+    
+                $('#reset-password-form').submit(function(event) {
+                    event.preventDefault();
+    
+                    var formData = $(this).serialize();
+                    $.post($(this).attr('action'), formData, function(response) {
+                        if (response === 'Confirmation code sent to the email address.') {
+                            // Afficher le formulaire de confirmation du code
+                            popupContent.empty();
+                            popupContent.append('<h2>Confirmation Code</h2>');
+                            popupContent.append(`
+                                <form id="confirm-code-form">
+                                    <label for="confirmation-code">Confirmation Code:</label>
+                                    <input type="text" id="confirmation-code" name="confirmation-code" required>
+                                    <button id="confirm-button" class="confirm-button">Confirm</button>
+                                </form>
+                            `);
+    
+                            // Ajouter un bouton de fermeture à la popup de confirmation du code
+                            popupContent.append(closeButton);
+    
+                            // Ajouter un gestionnaire d'événements pour le bouton de fermeture de la popup de confirmation du code
+                            closeButton.click(function() {
+                                popup.remove();
+                            });
+                        } else {
+                            alert(response); // Afficher le message d'erreur
+                        }
+                    });
+                });
+            });
+    
+            // Utilisation de la délégation d'événements pour gérer le clic sur le bouton de confirmation
+            $(document).on('click', '#confirm-button', function(event) {
+                event.preventDefault();
+    
+                var confirmationCode = $('#confirmation-code').val();
+                $.post('{{ path('confirm_code') }}', { 'confirmation-code': confirmationCode }, function(response) {
+                    if (response === 'Correct confirmation code.') {
+                        // Afficher le formulaire de réinitialisation du mot de passe
+                        var popup = $('.popup');
+                        var popupContent = $('.popup-content');
+                        var closeButton = $('<span class="close-button">&times;</span>');
+                        popupContent.empty();
+                        popupContent.append('<h2>Reset Password</h2>');
+                        popupContent.append(`
+                            <form id="reset-password-form" action="{{ path('reset_password') }}" method="POST">
+                                <label for="new-password">New Password:</label>
+                                <input type="password" id="new-password" name="new-password" required>
+                                <label for="confirm-new-password">Confirm New Password:</label>
+                                <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                                <button type="submit" class="reset-password-button">Reset Password</button>
+                            </form>
+                        `);
+    
+                        // Ajouter un bouton de fermeture à la popup de réinitialisation du mot de passe
+                        popupContent.append(closeButton);
+    
+                        // Ajouter un gestionnaire d'événements pour le bouton de fermeture de la popup de réinitialisation du mot de passe
+                        closeButton.click(function() {
+                            popup.remove();
+                        });
+                    } else {
+                        alert(response); // Afficher le message d'erreur
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
+
+
+    <style>
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #reset-password-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        #reset-password-form label {
+            margin-bottom: 10px;
+        }
+
+        #reset-password-form input[type="email"] {
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .next-button {
+            height: 40px;
+            padding: 10px 20px;
+            background-color: #003788;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .next-button:hover {
+            background-color: #002b66;
+        }
+    </style>
+</body>
+</html>
+
+  
+
+
+
+
