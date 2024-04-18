@@ -74,8 +74,9 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body py-5 px-md-5">
-                                    <form id="registrationForm" method="POST" action="{{ path('app_users_new') }}" novalidate>
-                                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                    <form id="registrationForm" method="POST" action="{{ path('app_users_new') }}" novalidate enctype="multipart/form-data">
+                                        <form id="registrationForm" method="POST" action="{{ path('app_users_new') }}" novalidate enctype="multipart/form-data">
+                                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                                         <!-- Icône d'Inscription -->
                                         <div class="sign-up-icon">
                                             <i class="fas fa-user-plus fa-3x"></i> <!-- Utiliser l'icône "User Plus" de Font Awesome -->
@@ -104,7 +105,8 @@
                                             {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email address', 'id': 'email'}}) }}
                                             <span class="error-icon" id="error-email"><i class="fas fa-exclamation-circle"></i></span>
                                             <div class="error-message" id="error-message-email" role="alert">
-                                                {{ form_errors(form.email)|striptags }}
+                                                {{ form_errors(form.email)|striptags|raw }}                                           
+
                                             </div>
                                         </div>
                                             
@@ -143,22 +145,31 @@
                                                 {{ form_errors(form.telephone)|striptags }}
                                             </div>
                                         </div>
-                                            
-                                        <!-- Champ Date de Naissance -->
-                                        <div class="mb-4 input-group">
-                                            {{ form_widget(form.dateDeNaissance, {'attr': {'class': 'form-control', 'placeholder': 'Date de Naissance', 'id': 'date-de-naissance'}}) }}
-                                            <span class="error-icon" id="error-date-de-naissance"><i class="fas fa-exclamation-circle"></i></span>
-                                            <div class="error-message" id="error-message-date-de-naissance" role="alert">
-                                                {{ form_errors(form.dateDeNaissance)|striptags }}
-                                            </div>
-                                        </div>
+                                       
+                                       <!-- Champ Date de Naissance -->
+                                       <div class="mb-4 input-group" style="position: relative; margin-bottom: 10px;">
+                                        {{ form_widget(form.dateDeNaissance, {'attr': {'class': 'form-control', 'placeholder': 'Date de Naissance', 'id': 'date-de-naissance'}}) }}
+                                        <span class="text-danger" id="error-message-date-de-naissance" role="alert" style="display: block; position: absolute; top: 80%; margin-top: 1mm; left:0.5%;">
+                                            {{ form_errors(form.dateDeNaissance)|striptags|raw }}
+                                        </span>
+                                    </div>
+                                    
+
+                                        
+                                        
+                                        
+                                        
+                                        
+                                       
+                                        
+                                        
                                             
                                         <!-- Champ CIN -->
                                         <div class="mb-4 input-group">
                                             {{ form_widget(form.cin, {'attr': {'class': 'form-control', 'placeholder': 'CIN', 'id': 'cin'}}) }}
                                             <span class="error-icon" id="error-cin"><i class="fas fa-exclamation-circle"></i></span>
                                             <div class="error-message" id="error-message-cin" role="alert">
-                                                {{ form_errors(form.cin)|striptags }}
+                                                {{ form_errors(form.cin)|striptags | raw}}
                                             </div>
                                         </div>
                                             
@@ -166,9 +177,9 @@
                                         <div class="mb-4 input-group">
                                             {{ form_widget(form.photo, {'attr': {'class': 'form-control-file', 'id': 'photo'}}) }}
                                             <span class="error-icon" id="error-photo"><i class="fas fa-exclamation-circle"></i></span>
-                                            <div class="error-message" id="error-message-photo" role="alert">
-                                                {{ form_errors(form.photo)|striptags }}
-                                            </div>
+                                            <span class="text-danger" id="error-message-photo" role="alert" style="display: block; position: absolute; top: 80%; margin-top: 1mm; left:0.5%;">
+                                                {{ form_errors(form.photo)|striptags|raw }}
+                                            </span>
                                         </div>
                                             
                                         <!-- Bouton de Soumission -->

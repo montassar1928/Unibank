@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UsersType extends AbstractType
+class Users1Type extends AbstractType
 {
     private $passwordEncoder;
     private $entityManager;
@@ -52,12 +52,17 @@ class UsersType extends AbstractType
             ])
             ->add('Role', null, [
                 'attr' => ['class' => 'form-control', 'style' => 'display:none'],
-                'data' => 'CLIENT',
+                'data' => 'BANQUE',
                 'label' => false,
             ])
             ->add('statut', null, [
                 'attr' => ['class' => 'form-control', 'style' => 'display:none'],
-                'data' => 'inactif',
+                'data' => 'Actif',
+                'label' => false,
+            ])
+            ->add('Banned', null, [
+                'attr' => ['class' => 'form-control', 'style' => 'display:none'],
+                'data' => 'False',
                 'label' => false,
             ])
             ->add('adresse')
@@ -72,7 +77,8 @@ class UsersType extends AbstractType
                     'placeholder' => 'Date de Naissance',
                     'id' => 'date-de-naissance'
                 ]
-            ])            ->add('cin')
+            ])          
+              ->add('cin')
             ->add('photo', FileType::class, [
                 'label' => 'Photo (JPG, PNG file)',
                 'required' => false,

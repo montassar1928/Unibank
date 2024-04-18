@@ -45,4 +45,15 @@ class UsersRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function countUsersByStatut($status)
+{
+    return $this->createQueryBuilder('u')
+        ->select('COUNT(u)')
+        ->where('u.role = :role')
+        ->andWhere('u.statut = :statut')
+        ->setParameter('role', 'CLIENT')
+        ->setParameter('statut', $status)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 }

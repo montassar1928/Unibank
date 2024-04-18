@@ -63,7 +63,7 @@ class UsersphotoController extends AbstractController
     
         // Envoyer un SMS avec Twilio
         $twilioSid = "AC5cf45072dc7d879953d4f9433c7cd504";
-        $twilioToken = "a8df6cc956bbd97710545a54fab2878b";
+        $twilioToken = "278aa16e823dbd4ed7545ed8d639f3c6";
         $twilioNumber =  "+13342343159";
     
         $client = new Client($twilioSid, $twilioToken);

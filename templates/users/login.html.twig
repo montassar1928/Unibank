@@ -5,30 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIATNET Authentification</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
-    <style>
-        #top {
-            width: 100%;
-            margin-bottom: 0px; /* Ajout de marge en bas pour rapprocher du contenu */
-        }
-        #main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: calc(100% - 20px); /* Utilisation de calc pour ajuster la hauteur en tenant compte de la marge ajoutée */
-        }
-        #middle {
-            width: 90%; /* Ajustez la largeur selon vos besoins */
-            max-width: 1200px; /* Limitez la largeur maximale */
-        }
-        /* Ajoutez d'autres styles CSS au besoin */
-        /* Ajoutez des media queries pour les ajustements en fonction de la taille de l'écran */
-        @media screen and (max-width: 768px) {
-            #middle {
-                width: 100%;
-            }
-        }
-    </style>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm"></script>
 </head>
 <body onload="setFocus()">
     <div id="top">
@@ -75,10 +54,7 @@
                             <div align="center"></div>
                         </td>
                         <td width="500px">
-                            <form action="{{ path('app_login') }}" method="post">
-                                {% if error %}
-                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                {% endif %}
+                            <form action="{{ path('app_login') }}" method="post" onsubmit="return executeRecaptcha()">
                                 {% if app.user %}
                                     <div class="mb-3">
                                         You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -90,9 +66,17 @@
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email">
                                     </div>
+                                  
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
                                     </div>
+                                    {% if error %}
+                                    <div class="alert alert-danger" style="color: red; font-size: smaller; border: none; box-shadow: none;margin-top:-10px">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                                
+                                
                                     
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                     <div class="row mb-4">
@@ -106,14 +90,15 @@
                                             <a href="#!" id="forgot-password-link">Forgot password?</a>
                                         </div>
                                     </div>
+                            
                                     <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #003788; border-color: #003788;">Se connecter</button>
-                                    <!-- ... -->
+                                    <div id="recaptcha-message"></div>
                                     <div class="text-center">
                                         <p>Not a member? <a href="{{ path('app_users_new') }}" id="register-link">Register</a></p>
                                     </div>
-                                    <!-- ... -->
                                 </div>
                             </form>
+                            
                             
                             <script>
                                 function togglePasswordVisibility() {
@@ -126,8 +111,6 @@
                                     }
                                 }
                             </script>
-                            
-                            
                         </td>
                         <td width="404px" valign="top" style="padding-top:45px">
                             <div>
@@ -165,6 +148,9 @@
                 window.open(url, '_blank', options);
             }
         });
+        
+
+
     </script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -262,78 +248,86 @@
             });
         });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Fonction pour exécuter reCAPTCHA (commentée pour le moment)
+        /*
+        function executeRecaptcha() {
+            // Attente de la disponibilité de reCAPTCHA
+            grecaptcha.ready(function() {
+                // Exécution de reCAPTCHA avec la clé de site spécifiée
+                grecaptcha.execute('6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm', { action: 'submit' }).then(function(token) {
+                    // Une fois que le token reCAPTCHA est généré, exécutez cette fonction
+                    // Cette fonction envoie le token au backend pour validation
     
+                    // Requête AJAX pour envoyer le token au backend
+                    $.ajax({
+                        type: 'POST', // Méthode HTTP utilisée pour la requête
+                        url: '{{ path('validate_recaptcha') }}', // URL de l'endpoint de validation reCAPTCHA
+                        data: {
+                            'token': token // Données à envoyer (le token reCAPTCHA)
+                        },
+                        success: function(response) {
+                            // Cette fonction est appelée en cas de succès de la requête AJAX
+                            // Elle traite la réponse du backend
+                            // La réponse est généralement au format JSON
     
-
-
-    <style>
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+                            // Extrait des données pertinentes de la réponse JSON
+                            var isValid = response.success; // Supposons que 'success' soit un champ dans votre réponse JSON
+    
+                            // Affichage du résultat dans le document HTML en fonction de la validité du reCAPTCHA
+                            if (isValid) {
+                                $('#recaptcha-message').text("reCAPTCHA validé avec succès!");
+                            } else {
+                                $('#recaptcha-message').text("Erreur lors de la validation de reCAPTCHA.");
+                            }
+                        }
+                    });
+                });
+            });
+    
+            // Retourne false pour éviter la soumission du formulaire par défaut
+            return false;
         }
+        */
+    </script>
+    
+    <script>
+    function executeRecaptcha() {
+        return new Promise(function(resolve, reject) {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm', { action: 'submit' }).then(function(token) {
+                    // Store the token in the hidden input field
+                    document.getElementById('recaptcha-token').value = token;
+                    // Resolve the promise with true indicating successful validation
+                    resolve(true);
+                }).catch(function(error) {
+                    // Reject the promise with false indicating failed validation
+                    reject(false);
+                });
+            });
+        });
+    }
 
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
+    // Call executeRecaptcha() when the form is submitted
+    document.getElementById('recaptcha-form').addEventListener('submit', function(event) {
+        executeRecaptcha().then(function(result) {
+            // If ReCaptcha validation is successful, continue with form submission
+            if (result) {
+                return true;
+            }
+        }).catch(function(error) {
+            // If ReCaptcha validation fails, prevent form submission
+            event.preventDefault();
+            // Optionally, display an error message
+            document.getElementById('recaptcha-message').innerText = "Please verify that you're not a robot.";
+        });
+    });
+</script>
 
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-        }
 
-        #reset-password-form {
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-        }
-
-        #reset-password-form label {
-            margin-bottom: 10px;
-        }
-
-        #reset-password-form input[type="email"] {
-            height: 40px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .next-button {
-            height: 40px;
-            padding: 10px 20px;
-            background-color: #003788;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .next-button:hover {
-            background-color: #002b66;
-        }
-    </style>
 </body>
 </html>
-
-  
-
 
 
 

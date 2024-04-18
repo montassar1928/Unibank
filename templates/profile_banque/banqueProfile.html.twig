@@ -139,15 +139,41 @@
                 <span class="unibank-text ms-1">UNIBANK</span>
             </a>
             
-                    
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        
+              <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                <div class="d-flex align-items-center">
+                    <!-- Bouton de notification -->
+                    <button class="btn btn-link btn-sm me-0 position-relative" id="notificationButton">
+                        <i class="fas fa-bell fa-2x" style="color: #FF5733; position: relative;">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="transform: translate(-50%, -50%);">5</span>
+                        </i>
+                        <span class="visually-hidden">Unread notifications:</span>
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger" id="notificationNumber">3</span>
+                    </button>
+                    <style>
+                    .visually-hidden {
+                        position: absolute !important;
+                        clip: rect(0 0 0 0) !important;
+                        width: 1px !important;
+                        height: 1px !important;
+                        margin: -1px !important;
+                        padding: 0 !important;
+                        border: 0 !important;
+                        overflow: hidden !important;
+                        white-space: nowrap !important;
+                    }</style>
+                    
+            
+                    <!-- Formulaire de recherche -->
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
             </form>
+            
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -156,7 +182,8 @@
                     </a>                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ path('app_bankprofile') }}">Mon profile</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
-                    </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         
@@ -177,6 +204,8 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-plus" style="color: white;"></i></div>
                                 Les demandes de compte
                             </a>
+                            
+                            
                             <a class="nav-link" href="{{ path('app_users_list_client') }}" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
                                 Liste des clients
@@ -217,123 +246,142 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Liste des demandes</h1>
+                        <h1 class="mt-4">Mon profile</h1>
                         {% block body %}
-                        <div class="row justify-content-end">
-                            <div class="col-md-6 text-end">
-                                <form action="{{ path('app_users_index') }}" method="GET" class="mb-4">
-                                    <div class="input-group justify-content-end search-container" style="width: 350px; margin-right: 20px;">
-                                        <input type="text" class="form-control form-control-sm me-auto" placeholder="Rechercher" name="query" value="{{ app.request.query.get('query') }}">
-                                        <select class="form-select form-select-sm me-0" name="filter">
-                                            <option value="nom">Nom</option>
-                                            <option value="prenom">Prénom</option>
-                                            <option value="cin">CIN</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-primary btn-sm ms-0">
-                                            <i class="fas fa-search"></i> <!-- Ajoutez votre classe d'icône ici -->
-                                        </button>                                
-                                    </div>
-                                    
-                                </form>
-                                
-                                
-                            </div>
+
+  <!-- Contenu spécifique du corps de la page -->
+    <div class="container bootstrap snippets bootdey">
+        <h1 class="text-primary"></h1>
+        <hr>
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    <form id="change-photo-form" action="{{ path('change_photo') }}" method="post" enctype="multipart/form-data">
+                        <label for="avatar-upload" style="cursor: pointer;">
+                            <img id="avatar-preview" src="{{ app.user.photo ? asset('img/' ~ app.user.photo) : 'https://bootdey.com/img/Content/avatar/avatar7.png' }}" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 200px; height: 200px;">
+                            <!-- Définir la largeur et la hauteur de l'image à 200 pixels -->
+                            <h6 style="display: inline-block; margin-left: 5px; vertical-align: middle;">
+                                <i class="fas fa-camera fa-2x" style="color: #3498db; vertical-align: middle;"></i> Changer la photo
+                            </h6>
+                        </label>
+                        <input type="file" id="avatar-upload" name="image" style="display: none;">
+                    </form>
+                    
+                    
+                    
+                    <script>
+                        // Ajouter un gestionnaire d'événements pour le changement de fichier
+                        document.getElementById('avatar-upload').addEventListener('change', function() {
+                            // Soumettre automatiquement le formulaire lorsque le fichier est sélectionné
+                            document.getElementById('change-photo-form').submit();
+                        });
+                    </script>
+                </div>
+            </div>
+            
+          
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                <h3>Informations personnelles</h3>
+                
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Prénom :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.prenom }}" readonly style="background-color: #f5f5f5;">
                         </div>
-                        
-                    
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable 
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="datatablesSimple" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Nom</th>
-                                                <th>Prenom</th>
-                                                <th>Email</th>
-                                                <th>Date_creation</th>
-                                                <th>Adresse</th>
-                                                <th>Raison_Sociale</th>
-                                                <th>Telephone</th>
-                                                <th>DateDeNaissance</th>
-                                                <th>Statut</th>
-                                                <th>Cin</th>
-                                                <th>Role</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for user in pagination.items %}
-                                                <tr>
-                                                    <td>{{ user.id }}</td>
-                                                    <td>{{ user.nom }}</td>
-                                                    <td>{{ user.prenom }}</td>
-                                                    <td>{{ user.email }}</td>
-                                                    <td>{{ user.dateCreation ? user.dateCreation|date('Y-m-d') : '' }}</td>
-                                                    <td>{{ user.adresse }}</td>
-                                                    <td>{{ user.RaisonSociale }}</td>
-                                                    <td>{{ user.telephone }}</td>
-                                                    <td>{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d') : '' }}</td>
-                                                    <td>{{ user.statut }}</td>
-                                                    <td>{{ user.cin }}</td>
-                                                    <td>{{ user.Role }}</td>
-                    
-                                                    <td class="d-flex justify-content-end">
-                                                        <!-- Utilisation de flexbox pour aligner les boutons à droite -->
-                                                        <form action="{{ path('app_users_accept', {'id': user.id}) }}" method="post">
-                                                            <input type="hidden" name="id" value="{{ user.id }}">
-                                                            <button type="submit" class="btn btn-success btn-sm" style="background-color: #003788;">Accepter</button>
-                                                        </form>
-                                                        <form action="{{ path('delete', {'id': user.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <button type="submit" class="btn btn-danger btn-sm ms-2" style="background-color: #003788;">Supprimer</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            {% else %}
-                                                <tr>
-                                                    <td colspan="12">no records found</td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.nom }}" readonly style="background-color: #f5f5f5;">
                         </div>
+                    </div>
                     
-                        {% if pagination.getTotalItemCount() > 0 %}
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item{% if pagination.currentPageNumber == 1 %} disabled{% endif %}">
-                                    <a class="page-link" href="{{ path('app_users_index', {'page': pagination.currentPageNumber - 1}) }}">Previous</a>
-                                </li>
-                                {% for page in 1..pagination.pageCount %}
-                                    <li class="page-item{% if page == pagination.currentPageNumber %} active{% endif %}">
-                                        <a class="page-link" href="{{ path('app_users_index', {'page': page}) }}">{{ page }}</a>
-                                    </li>
-                                {% endfor %}
-                                <li class="page-item{% if pagination.currentPageNumber == pagination.pageCount %} disabled{% endif %}">
-                                    <a class="page-link" href="{{ path('app_users_index', {'page': pagination.currentPageNumber + 1}) }}">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    {% endif %}
-                    
-                    {% endblock %}
-                    
-                    
-                    
-                       
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.email }}" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Date de naissance :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.dateDeNaissance|date('Y-m-d') }}" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Adresse :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.adresse }}" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Téléphone :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.telephone }}" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">CIN :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="{{ app.user.cin }}" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-top: 20px;"> <!-- Ajout d'une marge de 20px en haut -->
+                    <div class="text-right">
+                        <a href="{{ path('app_change_password') }}" class="btn btn-primary btn-sm" id="changePasswordButton" style="background-color: #003788; border-color: #003788;">Changer le mot de passe</a>
+                        <span style="margin-right: 0.5cm;"></span>
+                        <a href="{{ path('') }}" class="btn btn-secondary btn-sm" id="anotherActionButton" style="background-color: #003788; border-color: #003788;">Supprimer votre compte</a>
+                    </div>
+                </div>
+                
+                
+                
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const changePasswordButton = document.getElementById('changePasswordButton');
+                
+                        if (changePasswordButton) {
+                            changePasswordButton.addEventListener('click', function(event) {
+                                event.preventDefault();
+                                const url = this.getAttribute('href');
+                                // Ouvrir une nouvelle fenêtre (popup) avec l'URL spécifiée
+                                window.open(url, '_blank', 'width=600,height=400'); // Vous pouvez ajuster la taille de la fenêtre popup selon vos besoins
+                            });
+                        }
+                    });
+                </script>
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+                        {%endblock%}
+                      
+            
+                     
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2024</div>
+                            <div class="text-muted">
+                                &copy; 2024 Your Website
+                            </div>
+                            <div>
+                                <a href="?_locale=en">English</a>
+                                &middot;
+                                <a href="?_locale=fr">Français</a>
+                                &middot;
+                                <a href="?_locale=ar">العربية</a>
+                            </div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -342,11 +390,18 @@
                         </div>
                     </div>
                 </footer>
+                
+                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/js/scripts.js') }}"></script>
+     
+        
+        
+        
+        
+        
+        
     </body>
 </html>
-
-

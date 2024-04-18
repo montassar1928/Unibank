@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'This email is already registered.')]
 class Users implements UserInterface
@@ -18,41 +19,66 @@ class Users implements UserInterface
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
-    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire')]
     private ?string $nom = null;
 
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
+    #[Assert\NotBlank(message: 'Le prenom est obligatoire')]
     private ?string $prenom = null;
-
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+ 
+     #[ORM\Column(type: 'string', length: 50, nullable: true)]
+     #[Assert\NotBlank(message: 'Email est obligatoire')]
+     #[Assert\Regex(
+         pattern: '/@/',
+         message: 'Email doit contenir un @'
+      )]
+     
     private ?string $email = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $password = null;
+     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+     #[Assert\NotBlank(message: 'Le mot de passe est obligatoire')]
+     #[Assert\Regex(
+      pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/',
+    message: 'Le mot de passe doit contenir au moins 8 caractères avec au moins une minuscule, une majuscule et un chiffre'
+    )]
+    
+   private ?string $password = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $date_creation = null;
+    #[Assert\NotBlank(message: 'Votre adresse est obligatoire')]
 
     #[ORM\Column(type: 'string', length: 40, nullable: true)]
     private ?string $adresse = null;
-
+   
+    #[Assert\NotBlank(message: 'La raison sociale est obligatoire')]
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     private ?string $Raison_Sociale = null;
-
     #[ORM\Column(type: 'integer', nullable: true)]
+    
+    #[Assert\NotBlank(message: 'Le numéro de téléphone est obligatoire.')]
+    #[Assert\Regex(
+        pattern: '/^\d+$/',
+         message: 'Le numéro de téléphone doit être composé uniquement de chiffres.'
+    )]
     private ?int $telephone = null;
+    
+    #[ORM\Column(name: "dateDeNaissance", type: "date", nullable: true)]
+    #[Assert\NotBlank(message: "La date de naissance est obligatoire.")]
+    #[Assert\LessThan("-18 years", message:" Votre age est moins que 18 ans.")]
 
-    #[ORM\Column(name: 'dateDeNaissance', type: 'date', nullable: true)]
     private ?\DateTimeInterface $dateDeNaissance = null;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private ?string $statut = null;
-
+   
+    #[Assert\NotBlank(message: "La carte d'identitée est obligatoire.")]
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     private ?string $cin = null;
-
+   
+    #[Assert\NotBlank(message: 'La photo est obligatoire.')]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $photo = null;
+    private ?string $photo ;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private ?string $role = null;
