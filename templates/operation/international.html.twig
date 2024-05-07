@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New International Operation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles for the card */
+        .card {
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Changed background color to white */
+        }
+        .card-header {
+            background-color: #03045E; /* Changed header background color to #03045E */
+            color: #fff;
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            background-color: #f0f0f0; /* Changed input background color */
+            border: 1px solid #ccc; /* Changed input border color */
+            border-radius: 10px; /* Added border radius */
+            padding: 0.5rem 1rem; /* Adjusted padding */
+        }
+        .form-control:focus {
+            border-color: #03045E; /* Changed input border color on focus */
+            box-shadow: 0 0 0 0.2rem rgba(3, 4, 94, 0.25); /* Added box shadow on focus */
+        }
+        .btn-primary {
+            background-color: #03045E; /* Changed button background color to #03045E */
+            border-color: #03045E; /* Changed button border color to #03045E */
+            width: 100%;
+            border-radius: 10px; /* Added border radius */
+            padding: 0.5rem 1rem; /* Adjusted padding */
+            transition: background-color 0.3s, border-color 0.3s; /* Added transition effect */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /* Custom style for select */
+        select.form-control {
+            background-color: #f0f0f0; /* Changed select background color */
+            border: 1px solid #ccc; /* Changed select border color */
+            border-radius: 10px; /* Added border radius */
+            appearance: none; /* Remove default arrow */
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            padding: 0.5rem 1rem; /* Adjusted padding */
+            width: 100%; /* Full width */
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">International Operation</h1>
+        </div>
+        <div class="card-body">
+            <div class="international-form">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    <label for="ref">Coins <i class="fas fa-coins"></i></label>
+                    {{ form_widget(form.ref, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    <label for="description">Description <i class="fas fa-info-circle"></i></label>
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    <label for="montantopt">Amount <i class="fas fa-money-bill-wave"></i></label>
+                    {{ form_widget(form.montantopt, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+    <label for="send">code to send <i class="fas fa-user"></i></label>
+    {{ form_widget(form.send, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

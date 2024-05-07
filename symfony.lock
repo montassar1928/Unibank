@@ -17,7 +17,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.4",
+<<<<<<< HEAD
             "ref": "cc62b7e9470998c640ee99d284a013a676f1fc5e"
+=======
+            "ref": "91690c0a440faba1a3676256bcca2b4aa9f55b72"
+>>>>>>> origin/gestionComptesOperation
         },
         "files": [
             "./config/packages/doctrine.yaml",
@@ -38,12 +42,15 @@
             "./migrations/.gitignore"
         ]
     },
+<<<<<<< HEAD
     "gregwar/captcha-bundle": {
         "version": "v1.0.0"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
+=======
+>>>>>>> origin/gestionComptesOperation
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -58,6 +65,7 @@
             "./tests/bootstrap.php"
         ]
     },
+<<<<<<< HEAD
     "sensio/framework-extra-bundle": {
         "version": "6.2",
         "recipe": {
@@ -70,6 +78,8 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+=======
+>>>>>>> origin/gestionComptesOperation
     "symfony/console": {
         "version": "5.4",
         "recipe": {
@@ -290,6 +300,21 @@
             "./config/routes/web_profiler.yaml"
         ]
     },
+<<<<<<< HEAD
+=======
+    "symfony/webapp-pack": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "7d5c5e282f7e2c36a2c3bbb1504f78456c352407"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
+        ]
+    },
+>>>>>>> origin/gestionComptesOperation
     "twig/extra-bundle": {
         "version": "v3.8.0"
     }

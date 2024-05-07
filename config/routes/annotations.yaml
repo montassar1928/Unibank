@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # config/routes.yaml
+=======
+>>>>>>> origin/gestionComptesOperation
 controllers:
     resource: ../../src/Controller/
     type: annotation
