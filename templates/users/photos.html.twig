@@ -1,0 +1,41 @@
+{# templates/users/photos.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}User Photos{% endblock %}
+
+{% block body %}
+    <h1>User Photos</h1>
+    <div class="photo-gallery">
+        {% if imageUrls is empty %}
+            <p>No photos found.</p>
+        {% else %}
+            {% for imageUrl in imageUrls %}
+                <img src="{{ asset(imageUrl) }}" alt="User Photo">
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

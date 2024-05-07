@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+</head>
+<body>
+
+    <section class="">
+        <!-- Jumbotron -->
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                                {{ form_start(form) }}
+                                <!-- First name field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'First name'}}) }}
+                                </div>
+                                <!-- Last name field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Last name'}}) }}
+                                </div>
+                                <!-- Email field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email address'}}) }}
+                                </div>
+                                <!-- Password field -->
+                                {# templates/users/new.html.twig #}
+
+<div class="mb-4">
+    {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+
+    {% if errors is not empty %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+                                <!-- Address field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+                                </div>
+                                <!-- Raison Sociale field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.Raison_Sociale, {'attr': {'class': 'form-control', 'placeholder': 'Raison Sociale'}}) }}
+                                </div>
+                                <!-- Telephone field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Telephone'}}) }}
+                                </div>
+                                <!-- Date de Naissance field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.dateDeNaissance, {'attr': {'class': 'form-control', 'placeholder': 'Date de Naissance'}}) }}
+                                </div>
+                                <!-- CIN field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.cin, {'attr': {'class': 'form-control', 'placeholder': 'CIN'}}) }}
+                                </div>
+                                <!-- Photo field -->
+                                <div class="mb-4">
+                                    {{ form_row(form.photo, {'attr': {'class': 'form-control-file'}}) }}
+                                </div>
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    Sign up
+                                </button>
+                                <!-- End of form -->
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Jumbotron -->
+    </section>
+      
+</body>
+</html>

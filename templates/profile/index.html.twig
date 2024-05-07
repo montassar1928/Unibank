@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Inclure Font Awesome -->
+    <style>
+        /* Styles pour la popup de la modal */
+        .modal {
+            display: block; /* Afficher la modal par défaut */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+        }
+        .input-group {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Popup Modal pour le Formulaire de Changement de Mot de Passe -->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+        <!-- Messages de succès -->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <!-- Formulaire de Changement de Mot de Passe -->
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                                <form id="changePasswordForm" method="POST" action="{{ path('app_change_password') }}" novalidate>
+                                    <!-- Champ Ancien Mot de Passe -->
+                                    <div class="mb-4 input-group">
+                                        <input type="password" class="form-control" placeholder="Ancien Mot de Passe" id="old-password" name="old-password" required>
+                                        {% if errorMessages is defined and errorMessages['old-password'] is defined %}
+                                            <div class="error-message" role="alert">
+                                                {{ errorMessages['old-password'] }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                        
+                                    <!-- Champ Nouveau Mot de Passe -->
+                                    <div class="mb-4 input-group">
+                                        <input type="password" class="form-control" placeholder="Nouveau Mot de Passe" id="new-password" name="new-password" required>
+                                        {% if errorMessages is defined and errorMessages['new-password'] is defined %}
+                                            <div class="error-message" role="alert">
+                                                {{ errorMessages['new-password'] }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                        
+                                    <!-- Champ Répéter Nouveau Mot de Passe -->
+                                    <div class="mb-4 input-group">
+                                        <input type="password" class="form-control" placeholder="Répéter Nouveau Mot de Passe" id="confirm-new-password" name="confirm-new-password" required>
+                                        {% if errorMessages is defined and errorMessages['confirm-new-password'] is defined %}
+                                            <div class="error-message" role="alert">
+                                                {{ errorMessages['confirm-new-password'] }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                        
+                                    <!-- Bouton de Soumission -->
+                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                        Changer le Mot de Passe
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin du Formulaire de Changement de Mot de Passe -->
+    </div>
+</div>
+<!-- Fin de la Popup Modal pour le Formulaire de Changement de Mot de Passe -->
+
+</body>
+</html>
+
+
+

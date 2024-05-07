@@ -1,0 +1,39 @@
+
+
+{{ form_start(form, {'attr': {'class': 'reclamation-form'}}) }}
+    <div class="form-group">
+        {{ form_label(form.title, 'Title', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+    </div>
+
+    <!-- Ajoutez d'autres champs de formulaire de la même manière si nécessaire -->
+
+    <div class="form-group mt-3"> <!-- Ajoutez une classe pour ajouter un espacement -->
+        <button type="submit" class="btn btn-primary">{{ button_label|default('Envoyer') }}</button>
+    </div>
+{{ form_end(form) }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var descriptionInput = document.getElementById('{{ form.description.vars.id }}');
+        
+        descriptionInput.addEventListener('input', function () {
+            var description = this.value.toLowerCase();
+            var badWords = ['mot1', 'mot2', 'mot3']; // Liste de mots interdits
+            
+            for (var i = 0; i < badWords.length; i++) {
+                if (description.includes(badWords[i])) {
+                    alert('Votre description contient des mots interdits. Veuillez la modifier.');
+                    this.value = ''; // Effacer le contenu du champ description
+                    break;
+                }
+            }
+        });
+    });
+</script>
+

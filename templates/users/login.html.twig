@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIATNET Authentification</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js?render=6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm"></script>
+</head>
+<body onload="setFocus()">
+    <div id="top">
+        <div id="logo-window">
+            <div align="center" class="HeaderBody">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr class="header-row">
+                            <td class="image-cell" width="100px" height="100px" style="padding-right: 10px;">
+                                <img src="{{ asset('images/428026953_281625504949153_814641542176646955_n.png') }}" alt="Description de l'image" width="100px" height="100px">
+                            </td>
+                            <td>
+                                <span class="unibank-text">UNIBANK</span>
+                            </td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td class="header_td_1_1" width="733px" height="30px"></td>
+                                        <td class="header_td_1_2" width="223px" colspan="2"></td>
+                                        <td class="header_td_1_3" width="43px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="header_td_2_1" width="733px" height="132px"></td>
+                                        <td class="header_td_2_2" width="104px"></td>
+                                        <td class="header_td_2_3" width="119px">
+                                            <div class="header_td_2_3"></div>
+                                        </td>
+                                        <td class="header_td_2_4" width="43px"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="middle">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td width="70px" class="LeftBiat" colspan="2">
+                            <div align="center"></div>
+                        </td>
+                        <td width="500px">
+                            <form action="{{ path('app_login') }}" method="post" onsubmit="return executeRecaptcha()">
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                {% endif %}
+                                <div id="login-window">
+                                    <span id="title">Se connecter à UNIBANK :</span>
+                                    <br>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email">
+                                    </div>
+                                  
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+                                    </div>
+                                    {% if error %}
+                                    <div class="alert alert-danger" style="color: red; font-size: smaller; border: none; box-shadow: none;margin-top:-10px">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                                
+                                
+                                    
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    <div class="row mb-4">
+                                        <div class="col d-flex justify-content-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="form2Example34" onchange="togglePasswordVisibility()" />
+                                                <label class="form-check-label" for="form2Example34"> Show password </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#!" id="forgot-password-link">Forgot password?</a>
+                                        </div>
+                                    </div>
+                            
+                                    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #003788; border-color: #003788;">Se connecter</button>
+                                    <div id="recaptcha-message"></div>
+                                    <div class="text-center">
+                                        <p>Not a member? <a href="{{ path('app_users_new') }}" id="register-link">Register</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            
+                            <script>
+                                function togglePasswordVisibility() {
+                                    var passwordInput = document.getElementById("inputPassword");
+                                    var showPasswordCheckbox = document.getElementById("form2Example34");
+                                    if (showPasswordCheckbox.checked) {
+                                        passwordInput.type = "text";
+                                    } else {
+                                        passwordInput.type = "password";
+                                    }
+                                }
+                            </script>
+                        </td>
+                        <td width="404px" valign="top" style="padding-top:45px">
+                            <div>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                        </td>
+                        <td width="70px" class="RightBiat" colspan="2">
+                            <div align="center"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="bottom"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerLink = document.getElementById('register-link');
+            if (registerLink) {
+                registerLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = this.getAttribute('href');
+                    openPopup(url);
+                });
+            }
+    
+            function openPopup(url) {
+                const width = 600;
+                const height = 400;
+                const left = (window.innerWidth - width) / 2;
+                const top = (window.innerHeight - height) / 2;
+                const options = `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=yes`;
+                window.open(url, '_blank', options);
+            }
+        });
+        
+
+
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#forgot-password-link').click(function(event) {
+                event.preventDefault();
+    
+                var popup = $('<div class="popup"></div>');
+                var popupContent = $('<div class="popup-content"></div>');
+                var closeButton = $('<span class="close-button">&times;</span>');
+    
+                popupContent.append(closeButton);
+                popupContent.append('<h2>Forgot Password</h2>');
+                popupContent.append(`
+                    <form id="reset-password-form" action="{{ path('validate_email') }}" method="POST">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <button type="submit" class="next-button">Next</button>
+                    </form>
+                `);
+    
+                popup.append(popupContent);
+                $('body').append(popup);
+    
+                closeButton.click(function() {
+                    popup.remove();
+                });
+    
+                $('#reset-password-form').submit(function(event) {
+                    event.preventDefault();
+    
+                    var formData = $(this).serialize();
+                    $.post($(this).attr('action'), formData, function(response) {
+                        if (response === 'Confirmation code sent to the email address.') {
+                            // Afficher le formulaire de confirmation du code
+                            popupContent.empty();
+                            popupContent.append('<h2>Confirmation Code</h2>');
+                            popupContent.append(`
+                                <form id="confirm-code-form">
+                                    <label for="confirmation-code">Confirmation Code:</label>
+                                    <input type="text" id="confirmation-code" name="confirmation-code" required>
+                                    <button id="confirm-button" class="confirm-button">Confirm</button>
+                                </form>
+                            `);
+    
+                            // Ajouter un bouton de fermeture à la popup de confirmation du code
+                            popupContent.append(closeButton);
+    
+                            // Ajouter un gestionnaire d'événements pour le bouton de fermeture de la popup de confirmation du code
+                            closeButton.click(function() {
+                                popup.remove();
+                            });
+                        } else {
+                            alert(response); // Afficher le message d'erreur
+                        }
+                    });
+                });
+            });
+    
+            // Utilisation de la délégation d'événements pour gérer le clic sur le bouton de confirmation
+            $(document).on('click', '#confirm-button', function(event) {
+                event.preventDefault();
+    
+                var confirmationCode = $('#confirmation-code').val();
+                $.post('{{ path('confirm_code') }}', { 'confirmation-code': confirmationCode }, function(response) {
+                    if (response === 'Correct confirmation code.') {
+                        // Afficher le formulaire de réinitialisation du mot de passe
+                        var popup = $('.popup');
+                        var popupContent = $('.popup-content');
+                        var closeButton = $('<span class="close-button">&times;</span>');
+                        popupContent.empty();
+                        popupContent.append('<h2>Reset Password</h2>');
+                        popupContent.append(`
+                            <form id="reset-password-form" action="{{ path('reset_password') }}" method="POST">
+                                <label for="new-password">New Password:</label>
+                                <input type="password" id="new-password" name="new-password" required>
+                                <label for="confirm-new-password">Confirm New Password:</label>
+                                <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                                <button type="submit" class="reset-password-button">Reset Password</button>
+                            </form>
+                        `);
+    
+                        // Ajouter un bouton de fermeture à la popup de réinitialisation du mot de passe
+                        popupContent.append(closeButton);
+    
+                        // Ajouter un gestionnaire d'événements pour le bouton de fermeture de la popup de réinitialisation du mot de passe
+                        closeButton.click(function() {
+                            popup.remove();
+                        });
+                    } else {
+                        alert(response); // Afficher le message d'erreur
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Fonction pour exécuter reCAPTCHA (commentée pour le moment)
+        /*
+        function executeRecaptcha() {
+            // Attente de la disponibilité de reCAPTCHA
+            grecaptcha.ready(function() {
+                // Exécution de reCAPTCHA avec la clé de site spécifiée
+                grecaptcha.execute('6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm', { action: 'submit' }).then(function(token) {
+                    // Une fois que le token reCAPTCHA est généré, exécutez cette fonction
+                    // Cette fonction envoie le token au backend pour validation
+    
+                    // Requête AJAX pour envoyer le token au backend
+                    $.ajax({
+                        type: 'POST', // Méthode HTTP utilisée pour la requête
+                        url: '{{ path('validate_recaptcha') }}', // URL de l'endpoint de validation reCAPTCHA
+                        data: {
+                            'token': token // Données à envoyer (le token reCAPTCHA)
+                        },
+                        success: function(response) {
+                            // Cette fonction est appelée en cas de succès de la requête AJAX
+                            // Elle traite la réponse du backend
+                            // La réponse est généralement au format JSON
+    
+                            // Extrait des données pertinentes de la réponse JSON
+                            var isValid = response.success; // Supposons que 'success' soit un champ dans votre réponse JSON
+    
+                            // Affichage du résultat dans le document HTML en fonction de la validité du reCAPTCHA
+                            if (isValid) {
+                                $('#recaptcha-message').text("reCAPTCHA validé avec succès!");
+                            } else {
+                                $('#recaptcha-message').text("Erreur lors de la validation de reCAPTCHA.");
+                            }
+                        }
+                    });
+                });
+            });
+    
+            // Retourne false pour éviter la soumission du formulaire par défaut
+            return false;
+        }
+        */
+    </script>
+    
+    <script>
+    function executeRecaptcha() {
+        return new Promise(function(resolve, reject) {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm', { action: 'submit' }).then(function(token) {
+                    // Store the token in the hidden input field
+                    document.getElementById('recaptcha-token').value = token;
+                    // Resolve the promise with true indicating successful validation
+                    resolve(true);
+                }).catch(function(error) {
+                    // Reject the promise with false indicating failed validation
+                    reject(false);
+                });
+            });
+        });
+    }
+
+    // Call executeRecaptcha() when the form is submitted
+    document.getElementById('recaptcha-form').addEventListener('submit', function(event) {
+        executeRecaptcha().then(function(result) {
+            // If ReCaptcha validation is successful, continue with form submission
+            if (result) {
+                return true;
+            }
+        }).catch(function(error) {
+            // If ReCaptcha validation fails, prevent form submission
+            event.preventDefault();
+            // Optionally, display an error message
+            document.getElementById('recaptcha-message').innerText = "Please verify that you're not a robot.";
+        });
+    });
+</script>
+
+
+</body>
+</html>
+
+
+

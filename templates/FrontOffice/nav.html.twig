@@ -1,0 +1,75 @@
+<style>
+    .navbar-nav .nav-link {
+        color: white; /* Couleur de base des liens */
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+        color: #fff;
+        text-decoration: none;
+        background-color: #0056b3; /* Couleur de fond lors du survol ou du focus */
+        border-radius: 5px; /* Bord arrondi lors du survol ou du focus */
+    }
+</style>
+
+<div class="container-fluid" style="background-color: #003788;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #003788;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse px-1 px-sm-0" id="navbarSupportedContent" style="background-color: #003788;">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if app.user %}
+                    <li class="nav-item d-flex align-items-center">
+                        <p class="text-light px-lg-3 py-2 m-0">
+                            <img src="{{ asset('img/' ~ app.user.photo) }}" alt="" class="img-fluid rounded-circle mr-2 custom-img" width="23" height="23">
+                            Bonjour,   Madame  {{app.user.nom}} {{app.user.prenom}}
+                        </p>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link active" aria-current="page" href="" style="color: white;">Mes comptes</a>
+                    </li>
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link" href="#" style="color: white;">Opérations</a>
+                    </li>
+                    <li class="nav-item dropdown text-uppercase">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Demande de crédit
+                        </a>
+                        <ul class="dropdown-menu bg-sombre" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" style="color: black;">Ajouter demande</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: black;">Réponse demande</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown text-uppercase">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Réclamation
+                        </a>
+                        <ul class="dropdown-menu bg-sombre" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ path('app_reclamation_new') }}" style="color: black;">Ajouter réclamation</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_reclamation_index') }}" style="color: black;">Réponse réclamation</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link" href="{{ url('app_profile') }}" style="color: white;">Mon profile</a>
+                    </li>
+                    
+                </ul>
+                <ul class="navbar-nav text-center mb-2 mb-lg-0">
+                    <li class="nav-item text-uppercase">
+                        <a class="btn btn-dark mx-0 mx-lg-3" href="{{ path('app_logout') }}" style="color: white;">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+
