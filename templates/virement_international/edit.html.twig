@@ -1,0 +1,13 @@
+{% extends 'show.html.twig' %}
+
+{% block title %}Edit VirementInternational{% endblock %}
+
+{% block body %}
+    <h1>Edit VirementInternational</h1>
+
+    {{ include('virement_international/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_virement_international_index') }}">back to list</a>
+
+    {{ include('virement_international/_delete_form.html.twig') }}
+{% endblock %}
