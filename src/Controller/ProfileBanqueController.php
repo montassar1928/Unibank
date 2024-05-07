@@ -11,6 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 
 class ProfileBanqueController extends AbstractController
@@ -111,8 +114,20 @@ class ProfileBanqueController extends AbstractController
         // Rediriger l'utilisateur vers une page d'erreur ou une page appropriée
         return new Response("Aucune image n'a été téléchargée.", Response::HTTP_BAD_REQUEST);
     }
-    #[Route('/bankprofile', name: 'app_bankprofile')]
+    #[Route('deletebanque/{id}', name: 'app_banque_delete', methods: ['GET', 'POST'])]
+public function delete(Request $request, EntityManagerInterface $entityManager, Users $user): Response
+{
+    if ($request->isMethod('POST') && $this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        $entityManager->remove($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+    }
 
+    // Si la méthode de la requête n'est pas POST ou si le jeton CSRF n'est pas valide,
+    // rediriger vers une autre page ou afficher un message d'erreur
+    return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+}
+    #[Route('/bankprofile', name: 'app_bankprofile')]
     #[IsGranted("IS_AUTHENTICATED_FULLY")] // Appliquer l'authentification uniquement à cette route
 
     public function example(): Response
@@ -120,5 +135,8 @@ class ProfileBanqueController extends AbstractController
         // Rendre la vue profile.html.twig en utilisant le service 'render'
         return $this->render('profile_banque/banqueProfile.html.twig');
     }
+    
+    
+    
    
-}
+} 

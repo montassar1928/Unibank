@@ -49,11 +49,13 @@ class EmailController extends AbstractController
 
     private function sendConfirmationEmail(string $email, string $confirmationCode, MailerInterface $mailer): void
     {
+        $message = "Dear user,\n\nPlease use the following confirmation code to proceed with your action: $confirmationCode.\n\nIf you didn't request this confirmation code, please ignore this email.\n\nBest regards,\nThe [Your Company Name] Team";
+
         $email = (new Email())
             ->from('montaazzouz2@gmail.com')
             ->to($email)
             ->subject('Confirmation Code')
-            ->text('Your confirmation code: ' . $confirmationCode);
+            ->text(  $message);
 
         $mailer->send($email);
     }

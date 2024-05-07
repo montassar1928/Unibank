@@ -118,24 +118,25 @@ public function new(Request $request, UserPasswordEncoderInterface $passwordEnco
 
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 
     #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Users $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+    
         }
-
+    
         return $this->renderForm('users/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/list-client', name: 'app_users_list_client', methods: ['GET'])]
     public function listClient(Request $request, UsersRepository $usersRepository, PaginatorInterface $paginator): Response

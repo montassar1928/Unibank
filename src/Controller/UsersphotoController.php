@@ -63,11 +63,12 @@ class UsersphotoController extends AbstractController
     
         // Envoyer un SMS avec Twilio
         $twilioSid = "AC5cf45072dc7d879953d4f9433c7cd504";
-        $twilioToken = "278aa16e823dbd4ed7545ed8d639f3c6";
+        $twilioToken = "99b1ba8acc88a1c19a54f7f1c834ba73";
         $twilioNumber =  "+13342343159";
     
         $client = new Client($twilioSid, $twilioToken);
-        $message = "Votre compte a été activé.";
+        $message = "Nous sommes ravis de vous informer que votre compte Unibank a été activé avec succès par notre équipe administrative. Vous pouvez dès à présent vous connecter à votre compte pour accéder à toutes les fonctionnalités offertes par notre plateforme.
+        .";
     
         $client->messages->create(
             $telephone, // Numéro de téléphone du destinataire avec le préfixe de pays "+216"
