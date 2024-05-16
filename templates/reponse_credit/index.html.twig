@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<title>Reponse index</title>
+
+{% block body %}
+    <h1>Reponse index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdR</th>
+                <th>MontantR</th>
+                <th>RevenuR</th>
+                <th>DureeR</th>
+                <th>DateR</th>
+                <th>StatutR</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>{{ reponse.idR }}</td>
+                <td>{{ reponse.montantR }}</td>
+                <td>{{ reponse.revenuR }}</td>
+                <td>{{ reponse.dureeR }}</td>
+                <td>{{ reponse.dateR ? reponse.dateR|date('Y-m-d') : '' }}</td>
+                <td>{{ reponse.statutR }}</td>
+                <td>
+                    <a href="{{ path('app_reponse_credit_show', {'idR': reponse.idR}) }}">show</a>
+                    <a href="{{ path('app_reponse_credit_edit', {'idR': reponse.idR}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponse_credit_new') }}">Create new</a>
+{% endblock %}

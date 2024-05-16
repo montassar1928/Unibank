@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<title>Reponse</title>
+
+{% block body %}
+    <h1>Reponse</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdR</th>
+                <td>{{ reponse.idR }}</td>
+            </tr>
+            <tr>
+                <th>MontantR</th>
+                <td>{{ reponse.montantR }}</td>
+            </tr>
+            <tr>
+                <th>RevenuR</th>
+                <td>{{ reponse.revenuR }}</td>
+            </tr>
+            <tr>
+                <th>DureeR</th>
+                <td>{{ reponse.dureeR }}</td>
+            </tr>
+            <tr>
+                <th>DateR</th>
+                <td>{{ reponse.dateR ? reponse.dateR|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>StatutR</th>
+                <td>{{ reponse.statutR }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponse_credit_index') }}">back to list</a>
+
+    <a href="{{ path('app_reponse_credit_edit', {'idR': reponse.idR}) }}">edit</a>
+
+    {{ include('reponse_credit/_delete_form.html.twig') }}
+{% endblock %}

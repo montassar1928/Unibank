@@ -1,0 +1,23 @@
+{% extends 'show.html.twig' %}
+
+{% block title %}New VirementInternational{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Create new VirementInternational</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ include('virement_international/_form.html.twig') }}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_virement_international_index') }}" class="btn btn-secondary">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -334,7 +334,7 @@
                     <div class="text-right">
                         <a href="{{ path('app_change_password') }}" class="btn btn-primary btn-sm" id="changePasswordButton" style="background-color: #003788; border-color: #003788;">Changer le mot de passe</a>
                         <span style="margin-right: 0.5cm;"></span>
-                        <a href="{{ path('') }}" class="btn btn-secondary btn-sm" id="anotherActionButton" style="background-color: #003788; border-color: #003788;">Supprimer votre compte</a>
+                        <a href="{{ path('app_banque_delete', {'id': app.user.id}) }}" class="btn btn-secondary btn-sm" id="anotherActionButton" style="background-color: #003788; border-color: #003788;">Supprimer votre compte</a>
                     </div>
                 </div>
                 

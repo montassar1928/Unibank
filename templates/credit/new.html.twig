@@ -1,0 +1,42 @@
+{% extends 'credit/base.html.twig' %}
+
+{% block body %}
+    <FONT COLOR = "#485472">
+    <center><h4>Création d'une nouvelle Demande</h4></center>
+    <br></br>
+    {{ form_start(form) }}
+        {# Afficher les erreurs globales du formulaire #}
+        {{ form_errors(form) }}
+
+{# Champ Montant #}
+<div class="mb-4 input-group">
+    {{ form_widget(form.montant, {'attr': {'class': 'form-control', 'placeholder': 'Montant', 'id': 'montant'}}) }}
+
+    <div class="error-message" id="error-message-montant" role="alert">
+        {{ form_errors(form.montant)}}
+    </div>
+</div>
+ 
+{# Champ Revenu #}
+<div class="mb-4 input-group">
+    {{ form_widget(form.revenu, {'attr': {'class': 'form-control', 'placeholder': 'revenu annuel', 'id': 'revenu'}}) }}
+
+    <div class="error-message" id="error-message-revenu" role="alert">
+        {{ form_errors(form.revenu)}}
+    </div>
+
+ 
+</div> {# Champ duree #}
+<div class="mb-4 input-group">
+    {{ form_widget(form.duree, {'attr': {'class': 'form-control', 'placeholder': 'duree', 'id': 'duree'}}) }}
+
+    <div class="error-message" id="error-message-duree" role="alert">
+        {{ form_errors(form.duree)}}
+    </div>
+<br></br>
+
+       <button type="save" class="btn btn-primary btn-block mb-4">
+                                            enregistrer
+                                        </button>
+    {{ form_end(form) }}
+{% endblock %}

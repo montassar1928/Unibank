@@ -1,0 +1,36 @@
+{%extends "credit/base-pdf.html.twig"%}
+{%block title %} Liste Des Reponses{%endblock%}
+{% block body %}
+<ul>
+    <div class="card mb-4">
+                           <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Liste des Reponses 
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+ <table id="datatablesSimple" class="table" border=1>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Montant Fourni</th>
+                                                <th scope="col">Durée Fournie</th>
+                                                <th scope="col">Date création</th>
+                                            </tr>
+                                            <tbody>
+{% for rqt in allRequests%}
+                                                <tr>
+                                                    <td>{{ rqt.id_r }}</td>
+                                                    <td>{{ rqt.montant_r }}</td>
+                                                    <td>{{ rqt.duree_r }}</td>
+                                                    <td>{{ rqt.date_r ? rqt.date_r|date('Y-m-d') : '' }}</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="12">no records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </thead>
+                                        
+{% endblock %}

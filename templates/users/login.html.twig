@@ -7,8 +7,39 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LewIrYpAAAAAH9LcRSUnH2Wz7kUiDqEvFHrHpTm"></script>
-</head>
+    <style>
+        /* Add your custom CSS for responsiveness here */
+        @media screen and (max-width: 768px) {
+            /* Adjustments for smaller screens */
+            body {
+                font-size: 14px;
+            }
+            #top {
+                padding: 10px;
+            }
+            .unibank-text {
+                font-size: 18px;
+            }
+            /* You can add specific CSS rules here to make elements adjust for smaller screens */
+        }
+
+        @media screen and (max-width: 576px) {
+            /* Adjustments for even smaller screens */
+            body {
+                font-size: 12px;
+            }
+            #top {
+                padding: 5px;
+            }
+            .unibank-text {
+                font-size: 16px;
+            }
+            /* You can add specific CSS rules here to make elements adjust for even smaller screens */
+        }
+
+        /* Add more media queries as needed */
+    </style>
+
 <body onload="setFocus()">
     <div id="top">
         <div id="logo-window">

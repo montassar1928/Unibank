@@ -181,22 +181,39 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
                                 Liste des clients
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-money-bill" style="color: white;"></i></div>
-                                Les demandes de crédit
+                            <a class="nav-link" href="{{ path('app_backCompteCourant') }}" style="color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
+                                Liste des clients Courant
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
+                            
+                            <a class="nav-link" href="{{ path('app_backCompteEpargne') }}" style="color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
+                                Liste des clients Epargne
+                            </a>
+                            <a class="nav-link" href="{{ path('app_demande_credit_showw') }}" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle" style="color: white;"></i></div>
-                                Réclamations
+                                Les demandes credits 
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-university" style="color: white;"></i></div>
-                                Liste des comptes
+                            
+                            <a class="nav-link" href="{{ path('app_reclamations') }}" style="color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle" style="color: white;"></i></div>
+                                Réclamations 
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt" style="color: white;"></i></div>
-                                Transactions
+                           
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsefood" aria-expanded="false" aria-controls="collapsefood">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-md"></i></div> <!-- Icône pour les opérations -->
+                                <span class="link-text">Operation</span>
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapsefood" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ path('app_operation_index') }}"><i class="fas fa-money-bill-wave"></i> Operation</a> <!-- Icône pour les opérations -->
+                                    <a class="nav-link" href="{{ path('app_virement_international_index') }}"><i class="fas fa-exchange-alt"></i> Virement International</a> <!-- Icône pour les virements internationaux -->
+                                </nav>
+                            </div>
+                            
+                            
+    
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="#" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area" style="color: white;"></i></div>
@@ -217,7 +234,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Liste des demandes</h1>
+                        <h1 class="mt-4"></h1>
                         {% block body %}
                         <div class="row justify-content-end">
                             <div class="col-md-6 text-end">

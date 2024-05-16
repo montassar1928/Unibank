@@ -1,0 +1,44 @@
+{% extends 'admin/show.html.twig' %}
+
+{% block title %}Compte Epargne {% endblock %}
+
+{% block styles %}
+    <!-- Vos styles CSS -->
+{% endblock %}
+
+{% block body %}
+    <h1>Compte Epargne </h1>
+
+    <!-- Votre tableau HTML -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th><span class="icon">&#128202;</span> Numero de compte courant</th>
+                <th><span class="icon">&#128196;</span> Nom</th>
+                <th><span class="icon">&#128196;</span> Prenom</th>
+                <th><span class="icon">&#128197;</span> type</th>
+                <th><span class="icon">&#128221;</span> Status</th>
+                <th><span class="icon">&#128221;</span> Montant</th>
+                <th><span class="icon">&#128202;</span> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compteEpargne in compteEpargne %}
+                <tr>
+                    <td>{{ compteEpargne.cin }}</td>
+                    <td>{{ compteEpargne.iduser.nom }}</td>
+                    <td>{{ compteEpargne.iduser.prenom }}</td>
+                    <td>{{ compteEpargne.prenom }}</td>
+                    <td>{{ compteEpargne.status ? 'Actif' : 'Inactif' }}</td>
+                    <td>{{ compteEpargne.montant }}</td>
+                    <td>
+                        <a href="{{ path('app_back_CompteEpargne_update', {'id': compteEpargne.id}) }}" class="btn btn-primary"><span class="icon">&#9998;</span> Update</a>
+                        <a href="{{ path('app_back_CompteEpargne_delete', {'id': compteEpargne.id}) }}" class="btn btn-warning">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_CompteEpargne_add') }}" class="btn btn-success"><span class="icon">&#10010;</span> Create new</a>
+{% endblock %}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+
+        .table td {
+            vertical-align: top;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <h1>Operation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Numoperation</th>
+                <td>{{ operation.numoperation }}</td>
+            </tr>
+            <tr>
+                <th>Typeoperation</th>
+                <td>{{ operation.typeoperation }}</td>
+            </tr>
+            <tr>
+                <th>Dateoperation</th>
+                <td>{{ operation.dateoperation ? operation.dateoperation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ operation.description }}</td>
+            </tr>
+            <tr>
+                <th>Statusoperation</th>
+                <td>{{ operation.statusoperation ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Montantopt</th>
+                <td>{{ operation.montantopt }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+    <a href="{{ path('app_operation_index') }}" class="btn btn-secondary">back to list</a>
+
+    <a href="{{ path('app_operation_edit', {'numoperation': operation.numoperation}) }}" class="btn">edit</a>
+
+    {{ include('operation/_delete_form.html.twig') }}
+</body>
+</html>

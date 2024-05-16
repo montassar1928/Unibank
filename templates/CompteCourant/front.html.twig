@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block styles %}
+    {{ parent() }}
+    <style>
+        /* Vos styles personnalisés */
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Comptes</h1>
+
+    <h2>Comptes Courants et Épargne</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th><span class="icon">&#128202;</span> CIN</th>
+                <th><span class="icon">&#128196;</span> Nom</th>
+                <th><span class="icon">&#128196;</span> Prénom</th>
+                <th><span class="icon">&#128197;</span> Type</th>
+                <th><span class="icon">&#128221;</span> Statut</th>
+                <th><span class="icon">&#128221;</span> Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compteCourant in compteCourants %}
+                <tr>
+                    <td>{{ compteCourant.cin }}</td>
+                    <td>{{ compteCourant.iduser.nom }}</td>
+                    <td>{{ compteCourant.iduser.prenom }}</td>
+                    <td>Courant</td>
+                    <td>{{ compteCourant.status ? 'Actif' : 'Inactif' }}</td>
+                    <td>{{ compteCourant.montant }}</td>
+                    <!-- Actions pour les comptes courants -->
+                </tr>
+                {% for compteEpargne in compteEpargnes %}
+                    <tr>
+                        <td>{{ compteEpargne.cin }}</td>
+                        <td>{{ compteEpargne.iduser.nom }}</td>
+                        <td>{{ compteEpargne.iduser.prenom }}</td>
+                        <td>Épargne</td>
+                        <td>{{ compteEpargne.status ? 'Actif' : 'Inactif' }}</td>
+                        <td>{{ compteEpargne.montant }}</td>
+                        <!-- Actions pour les comptes épargne -->
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

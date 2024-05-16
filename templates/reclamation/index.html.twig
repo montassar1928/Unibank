@@ -1,0 +1,38 @@
+{% extends 'FrontOffice/base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5 mb-4">Mes Réclamations</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Nom et Prénom</th>
+                        <th scope="col">Date de Création</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reclamation in reclamations %}
+                        <tr>
+                            <td>{{ reclamation.id }}</td>
+                            <td>{{ reclamation.title }}</td>
+                            <td>{{ reclamation.userid.nom }} {{ reclamation.userid.prenom }}</td>
+                            <td>{{ reclamation.dateCreation|date('Y-m-d') }}</td>
+                            <td>{{ reclamation.description }}</td>
+                            <td>{{ reclamation.etat }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucun enregistrement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

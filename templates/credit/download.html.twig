@@ -1,0 +1,38 @@
+{%extends "credit/base-pdf.html.twig"%}
+{%block title %} Liste Des Demandes{%endblock%}
+{% block body %}
+<ul>
+    <div class="card mb-4">
+                           <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Liste des Demandes 
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+ <table id="datatablesSimple" class="table" border=1>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Montant Souhaité</th>
+                                                <th scope="col">Revenu Annuel</th>
+                                                <th scope="col">Durée Demandée</th>
+                                                <th scope="col">Date création</th>
+                                            </tr>
+                                            <tbody>
+{% for rqt in allRequests%}
+                                                <tr>
+                                                    <td>{{ rqt.id }}</td>
+                                                    <td>{{ rqt.montant }}</td>
+                                                    <td>{{ rqt.revenu }}</td>
+                                                    <td>{{ rqt.duree }}</td>
+                                                    <td>{{ rqt.date ? rqt.date|date('Y-m-d') : '' }}</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="12">no records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </thead>
+                                        
+{% endblock %}

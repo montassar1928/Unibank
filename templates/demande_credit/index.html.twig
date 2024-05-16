@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<title>Demande index</title>
+
+{% block body %}
+    <h1>Demande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Montant</th>
+                <th>Revenu</th>
+                <th>Duree</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+            <tr>
+                <td>{{ demande.id }}</td>
+                <td>{{ demande.montant }}</td>
+                <td>{{ demande.revenu }}</td>
+                <td>{{ demande.duree }}</td>
+                <td>{{ demande.date ? demande.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_demande_credit_show', {'id': demande.id}) }}">show</a>
+                    <a href="{{ path('app_demande_credit_edit', {'id': demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_credit_new') }}">Create new</a>
+{% endblock %}

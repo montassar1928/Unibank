@@ -168,7 +168,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href=""{{ path('compare_active_inactive_userss') }}" style="color: white;">
+                            <a class="nav-link" href="{{ path('compare_active_inactive_userss') }}" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: white;"></i></div>
                                 Dashboard
                             </a>
@@ -179,28 +179,42 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-plus" style="color: white;"></i></div>
                                 Les demandes de compte
                             </a>
-                            
-                            
                             <a class="nav-link" href="{{ path('app_users_list_client') }}" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
                                 Liste des clients
+                            </a>
+                            <a class="nav-link" href="{{ path('app_backCompteCourant') }}" style="color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
+                                Liste des clients Courant
+                            </a>
+                            
+                            <a class="nav-link" href="{{ path('app_backCompteEpargne') }}" style="color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user" style="color: white;"></i></div>
+                                Liste des clients Epargne
                             </a>
                             <a class="nav-link" href="#" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-money-bill" style="color: white;"></i></div>
                                 Les demandes de crédit
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
+                            <a class="nav-link" href="{{ path('app_reclamations') }}" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle" style="color: white;"></i></div>
-                                Réclamations
+                                Réclamations 
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-university" style="color: white;"></i></div>
-                                Liste des comptes
+                           
+                            <a class="nav-link" href="#collapsefood" style="color: white;" data-bs-toggle="collapse" aria-expanded="false">
+                                <div class="sb-nav-link-icon text-white"><i class="fas fa-money-check-alt"></i></div> <!-- Nouvelle icône pour les opérations -->
+                                <span class="link-text text-white">Operation</span>
+                                <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="#" style="color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt" style="color: white;"></i></div>
-                                Transactions
-                            </a>
+                            <div class="collapse" id="collapsefood" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link text-white" href=""><i class="fas fa-money-bill-wave"></i> Operation</a> <!-- Icône pour les opérations -->
+                                    <a class="nav-link text-white" href=""><i class="fas fa-exchange-alt"></i> Virement International</a> <!-- Icône pour les virements internationaux -->
+                                </nav>
+                            </div>
+                            
+                            
+    
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="#" style="color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area" style="color: white;"></i></div>
@@ -211,6 +225,7 @@
                                 Tables
                             </a>
                         </div>
+                        
                         
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
@@ -223,71 +238,211 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Liste des demandes</h1>
                         {% block body %}
-                      
                         {# templates/chart/index.html.twig#}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Comparaison des utilisateurs actifs et inactifs</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        canvas {
-            max-width: 400px;
-            max-height: 300px;
-            margin: 0 auto;
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="userComparisonChart"></canvas>
-    <script>
-        var ctx = document.getElementById('userComparisonChart').getContext('2d');
-        var userComparisonChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Actif', 'Inactif'],
-                datasets: [{
-                    label: 'Nombre de clients',
-                    data: [{{ active_users }}, {{ inactive_users }}],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.6)', // Bleu
-                        'rgba(255, 99, 132, 0.6)' // Rouge
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: { display: false },
-                scales: {
-                    yAxes: [{
-                        type: 'logarithmic', // Utilisation d'une échelle logarithmique pour l'axe des y
-                        ticks: {
-                            min: 1,
-                            callback: function(value, index, values) {
-                                return Number(value.toString()); // Convertir les valeurs à l'échelle logarithmique en nombres lisibles
-                            }
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            autoSkip: false // Ne pas sauter automatiquement les étiquettes sur l'axe des x
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
-</body>
-</html>
-
                     
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Comparaison des utilisateurs actifs et inactifs</title>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <style>
+                                canvas {
+                                    max-width: 400px;
+                                    max-height: 300px;
+                                    margin: 0 auto;
+                                    display: block;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <canvas id="userComparisonChart"></canvas>
+                            <script>
+                                var ctx = document.getElementById('userComparisonChart').getContext('2d');
+                                var userComparisonChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Actif', 'Inactif'],
+                                        datasets: [{
+                                            label: 'Nombre de clients',
+                                            data: [{{ active_users }}, {{ inactive_users }}],
+                                            backgroundColor: [
+                                                'rgba(54, 162, 235, 0.6)', // Bleu
+                                                'rgba(255, 99, 132, 0.6)' // Rouge
+                                            ],
+                                            borderColor: [
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 99, 132, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        legend: { display: false },
+                                        scales: {
+                                            yAxes: [{
+                                                type: 'logarithmic', // Utilisation d'une échelle logarithmique pour l'axe des y
+                                                ticks: {
+                                                    min: 1,
+                                                    callback: function(value, index, values) {
+                                                        return Number(value.toString()); // Convertir les valeurs à l'échelle logarithmique en nombres lisibles
+                                                    }
+                                                }
+                                            }],
+                                            xAxes: [{
+                                                ticks: {
+                                                    autoSkip: false // Ne pas sauter automatiquement les étiquettes sur l'axe des x
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            </script>
+                            
+                            <!-- Statistiques statiques -->
+                            <div class="container-fluid px-4">
+                                <div class="row">
+                                    <!-- Statistique sur les crédits bancaires -->
+                                    <div class="col-lg-4">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Statistique sur les crédits bancaires</h5>
+                                                <canvas id="creditStatisticsChart" width="200" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Statistique sur le nombre de comptes -->
+                                    <div class="col-lg-4">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Statistique sur le nombre de comptes</h5>
+                                                <canvas id="accountStatisticsChart" width="200" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Statistique sur le nombre de clients inscrits avec leur âge -->
+                                    <div class="col-lg-4">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Statistique sur les clients inscrits avec leur âge</h5>
+                                                <canvas id="ageStatisticsChart" width="200" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Statistique sur les opérations bancaires -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Statistique sur les opérations bancaires</h5>
+                                                <canvas id="operationStatisticsChart" width="200" height="200"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <script>
+                                // Graphique pour les crédits bancaires
+                                var creditStatisticsCtx = document.getElementById('creditStatisticsChart').getContext('2d');
+                                var creditStatisticsChart = new Chart(creditStatisticsCtx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Crédits accordés', 'Crédits remboursés'],
+                                        datasets: [{
+                                            data: [10000000, 7500000],
+                                            backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                                            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false
+                                    }
+                                });
+                    
+                                // Graphique pour le nombre de comptes
+                                var accountStatisticsCtx = document.getElementById('accountStatisticsChart').getContext('2d');
+                                var accountStatisticsChart = new Chart(accountStatisticsCtx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Comptes courants', 'Comptes épargne'],
+                                        datasets: [{
+                                            data: [3000, 2000],
+                                            backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+                                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false
+                                    }
+                                });
+                    
+                                // Graphique pour le nombre de clients inscrits avec leur âge
+                                var ageStatisticsCtx = document.getElementById('ageStatisticsChart').getContext('2d');
+                                var ageStatisticsChart = new Chart(ageStatisticsCtx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Âge moyen des clients'],
+                                        datasets: [{
+                                            label: 'Âge moyen des clients',
+                                            data: [35],
+                                            backgroundColor: 'rgba(255, 205, 86, 0.6)',
+                                            borderColor: 'rgba(255, 205, 86, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                    
+                                // Graphique pour les opérations bancaires
+                                var operationStatisticsCtx = document.getElementById('operationStatisticsChart').getContext('2d');
+                                var operationStatisticsChart = new Chart(operationStatisticsCtx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Total des opérations effectuées', 'Total des virements internationaux'],
+                                        datasets: [{
+                                            label: 'Opérations bancaires',
+                                            data: [50000, 2000],
+                                            backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                                            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            </script>
+                        </body>
+                        </html>
                     {% endblock %}
+                    
+                    
                     
                     
                        

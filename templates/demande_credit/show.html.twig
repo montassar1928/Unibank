@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<title>Liste des Demandes</title>
+
+{% block body %}
+    <h1>Demandes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ demande.montant }}</td>
+            </tr>
+            <tr>
+                <th>Revenu</th>
+                <td>{{ demande.revenu }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ demande.duree }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ demande.date ? demande.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_credit_index') }}">back to list</a>
+
+    {{ include('demande_credit/_delete_form.html.twig') }}
+{% endblock %}

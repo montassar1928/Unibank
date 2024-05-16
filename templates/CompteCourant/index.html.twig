@@ -1,0 +1,47 @@
+{% extends 'admin/show.html.twig' %}
+
+{% block title %}Compte Courant {% endblock %}
+
+{% block styles %}
+    <style>
+        /* Vos styles CSS ici */
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Compte Courant</h1>
+
+    {# Tableau des Comptes Courants #}
+    <table class="table">
+        <thead>
+            <tr>
+                <th><span class="icon">&#128202;</span> Numero de compte courant</th>
+                <th><span class="icon">&#128196;</span> Nom</th>
+                <th><span class="icon">&#128196;</span> Prenom</th>
+                <th><span class="icon">&#128197;</span> type</th>
+                <th><span class="icon">&#128221;</span> Status</th>
+                <th><span class="icon">&#128221;</span> Montant</th>
+                <th><span class="icon">&#128202;</span> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compteCourant in compteCourants %}
+                <tr>
+                    <td>{{ compteCourant.cin }}</td>
+                    <td>{{ compteCourant.iduser.nom }}</td>
+                    <td>{{ compteCourant.iduser.prenom }}</td>
+                    <td>{{ compteCourant.prenom }}</td>
+                    <td>{{ compteCourant.status ? 'Actif' : 'Inactif' }}</td>
+                    <td>{{ compteCourant.montant }}</td>
+                    <td>
+                        <a href="{{ path('app_back_CompteCourant_update', {'id': compteCourant.id}) }}" class="btn btn-primary"><span class="icon">&#9998;</span> Modifier</a>
+                        <a href="{{ path('app_back_CompteCourant_delete', {'id': compteCourant.id}) }}" class="btn btn-danger"><span class="icon">&#10006;</span> Supprimer</a>
+                        <!-- Ajoutez d'autres actions au besoin -->
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_CompteCourant_add') }}" class="btn btn-success"><span class="icon">&#10010;</span> Créer un nouveau compte</a>
+{% endblock %}
